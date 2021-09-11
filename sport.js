@@ -17,34 +17,24 @@ const parsing = async(keyword) => {
   const $ = cheerio.load(html.data);
   const $person = $(".profile_wrap");
 
+  let infoArr = $(".detail_profile > dt");
+  for (let i = 0; i < infoArr.length; i++) {
+    const s = infoArr[i].children[0].data;
+    info.push(s);
+  }
+  console.log(info);
+
   $person.each((idx, node) => {
-    let infoArr = $(".detail_profile > dt");
-    for (let i = 0; i < infoArr.length; i++) {
-      const s = infoArr[i].children[0].data;
-      info.push(s);
-    }
-    console.log(info);
-    let proArr = $(".detail_profile > dd");
-    console.log(proArr.length);
-    console.log(proArr[0]);
-    for (let i = 0; i < proArr.length; i++) {
-      if ($(".detail_profile > dd > span")) {
-        const p = proArr[i].children[0].data;
-        profile.push(p);
-      }
-      else if ($(".detail_profile > dd > a")){
-        const p = proArr[i].children[0].data;
-        profile.push(p);
-      }
-    }
-    console.log(profile);
-    // profile.push({
-    //   photo: $(node).find(".big_thumb > a > img").attr("src"),
-    //   detail: $(node).find(".detail_profile").text()
-    // })
+    console.log(idx);
+    profile.push({
+      name: $(node).find(".detail_profile > .name > a > strong").text(),
+      job: $(node).find(".detail_profile > .name > span").text(),
+      info: $(node).find(".detail_profile > dd > span:eq(1)").text()
+    })
   });
 
-  //console.log(profile);
+
+  console.log(profile);
 }
 
-parsing("손흥민");
+parsing("김연아");
