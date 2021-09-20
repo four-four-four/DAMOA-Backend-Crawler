@@ -1,10 +1,10 @@
 const axios = require("axios"); //특정  URL  삽입 시 URL html 태그 가지고
 const cheerio = require("cheerio");
 
-// HTML 코드를 가지고 오는 함수 (기사 최신순)
+// HTML 코드를 가지고 오는 함수
 const getHTML = async(keyword) => {
   try{
-    return await axios.get("https://search.naver.com/search.naver?where=news&query=" + encodeURI(keyword) + "&sm=tab_opt&sort=1&photo=0&field=0&pd=0&ds=&de=&docid=&related=0&mynews=0&office_type=0&office_section_code=0&news_office_checked=&nso=so%3Add%2Cp%3Aall&is_sug_officeid=0" ) //""안에는 URL 삽입
+    return await axios.get("https://search.naver.com/search.naver?where=news&query=" + encodeURI(keyword) + "&sm=tab_opt&sort=1&photo=0&field=0&pd=0&ds=&de=&docid=&related=0&mynews=0&office_type=0&office_section_code=0&news_office_checked=&nso=so%3Add%2Cp%3Aall&is_sug_officeid=0" ); //""안에는 URL 삽입
   }catch(err) {
     console.log(err);
   }
@@ -30,4 +30,4 @@ const parsing = async (keyword) => {
   console.log(informations);
 }
 
-parsing("개발자");
+parsing("개발자 채용");
