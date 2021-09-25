@@ -14,7 +14,7 @@ const getHTML = async(keyword) => {
 const parsing = async (keyword) => {
   const html = await getHTML(keyword);
   const $ = cheerio.load(html.data);// 가지고 오는 data load
-  const $news = $(".NiLAwe, .y6IFtc, .R7GTQ, .keNKEd, .j7vNaf, .nID9nc");
+  const $news = $("div.NiLAwe, div.y6IFtc, div.R7GTQ, div.keNKEd, div.j7vNaf, div.nID9nc");
 
   let informations = [];
   $news.each((idx,node) => {
@@ -24,10 +24,10 @@ const parsing = async (keyword) => {
       time: $(node).find(".SVJrMe > time").text(), // 시간
       // contents: $(node).find(".dsc_wrap").text(), // 내용
       link : $(node).find("article > .VDXfz").attr("href"), // 본문 링크
-      img : $(node).find("div > a > figure > img").attr("src") // 이미지
+      img : $(node).find("a > figure > img").attr("src") // 이미지
     })
-  }); //for문과 동일
+  });
   console.log(informations);
 }
 
-parsing("도지코인");
+parsing("개발자 채용");
