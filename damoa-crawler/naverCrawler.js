@@ -22,7 +22,7 @@ const parsing = async (keyword) => {
       title: $(node).find(".news_tit").text(), // 제목
       press: $(node).find(".info_group > .press").text(), // 언론
       time: $(node).find(".info_group > span").text(), // 시간
-      contents: $(node).find(".dsc_wrap").text(), // 내용
+      // contents: $(node).find(".dsc_wrap").text(), // 내용
       link : $(node).find(".news_tit").attr("href"), // 본문 링크
       img : $(node).find("a > img").attr("src") // 이미지
     })
