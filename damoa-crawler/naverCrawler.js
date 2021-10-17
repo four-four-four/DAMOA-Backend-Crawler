@@ -1,9 +1,14 @@
 const cron = require("node-cron"); // 스케쥴러
 const axios = require("axios"); //특정  URL  삽입 시 URL html 태그 가지고
 const cheerio = require("cheerio");
+const config = require("./config"); // DB 불러오기
+
+var conn = config.getConnection;
+var keywordIdx;
 
 cron.schedule('0 9,12,18 * * *', () => {
   console.log('9시, 12시, 6시에 실행: ', new Date().toString());
+
   // HTML 코드를 가지고 오는 함수
   const getHTML = async(keyword) => {
     try{
@@ -14,7 +19,7 @@ cron.schedule('0 9,12,18 * * *', () => {
   }
 
    // 파싱 함수
-  const parsing = async (keyword) => {
+  const parsing = async (keyword, keywordIdx) => {
     const html = await getHTML(keyword)
     const $ = cheerio.load(html.data);// 가지고 오는 data load
     const $news = $(".list_news > .bx");
@@ -31,7 +36,26 @@ cron.schedule('0 9,12,18 * * *', () => {
       })
     }); //for문과 동일
     console.log(informations);
+
+    for (var t = 0; t < informations.length; t++) {
+      conn.query('INSERT INTO Keyword_Info(keyword_idx, title, press, time, link, imgUrl) VALUES(?, ?, ?, ?, ?, ?);',
+      [keywordIdx, informations[t].title, informations[t].press, informations[t].time, informations[t].link, informations[t].img],
+      (err, result) => {
+        if (err) console.log(err);
+        console.log("성공"); // 변경 예정
+      })
+    }
   }
 
-  parsing("개발자 채용");
-})
+  conn.query('SELECT * from Keyword', (err, results, fields) => {
+      try{
+        for (var i = 0; i < results.length; i++) {
+          keywordIdx = results[i].idx;
+          parsing(results[i].keyword, keywordIdx);
+        }
+      }
+      catch(err){
+        console.log(err);
+      }
+  });
+});
