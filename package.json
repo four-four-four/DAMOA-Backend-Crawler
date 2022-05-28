@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "axios": "^0.26.1",
+    "charset-parser": "^0.2.0",
+    "cheerio": "^1.0.0-rc.10",
+    "html-entities": "^2.3.3",
+    "iconv-lite": "^0.6.3",
+    "mysql": "^2.18.1",
+    "request": "^2.88.2",
+    "sync-request": "^6.1.0",
+    "xml-js": "^1.6.11"
+  }
+}

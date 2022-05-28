@@ -1,0 +1,9 @@
+{
+  "DB": {
+    "host": "damoa.cvazgnsc0pm9.ap-northeast-2.rds.amazonaws.com",
+    "port": "3306",
+    "user": "admin",
+    "password": "ekahdkrds1!",
+    "name": "damoa"
+  }
+}
